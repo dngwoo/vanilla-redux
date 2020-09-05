@@ -18,9 +18,20 @@ const reducer = (count = 0, action) => {
 
 const store = createStore(reducer);
 
-// 0 {type: "@@redux/INITb.g.c.u.8.j"}
-store.dispatch({ type: "ADD" }); // 0 {type: "ADD"}
-store.dispatch({ type: "ADD" }); // 1 {type: "ADD"}
-store.dispatch({ type: "ADD" }); // 2 {type: "ADD"}
-store.dispatch({ type: "ADD" }); // 3 {type: "ADD"}
-store.dispatch({ type: "MINUS" }); // 4 {type: "MINUS"}
+const onChange = () => {
+  number.innerText = store.getState();
+};
+
+// store를 구독한다. state 변화 감지.
+store.subscribe(onChange);
+
+const handleAdd = () => {
+  store.dispatch({ type: "ADD" });
+};
+
+const handleMinus = () => {
+  store.dispatch({ type: "MINUS" });
+};
+add.addEventListener("click", handleAdd);
+
+minus.addEventListener("click", handleMinus);
