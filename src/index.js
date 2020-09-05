@@ -5,12 +5,22 @@ const minus = document.getElementById("minus");
 const number = document.getElementById("number");
 
 // reducer는 나의 data를 수정하는 function이다.
-const reducer = () => {
-  return "hello"; // 나의 application의 data가 된다.
+// action은 redux에서 function을 부를 때 쓰는 두번째 파라미터 혹은 인자이다.
+const reducer = (count = 0, action) => {
+  console.log(count, action);
+  if (action.type === "ADD") {
+    count++;
+  } else if (action.type === "MINUS") {
+    count--;
+  }
+  return count; // 나의 application의 data가 된다.
 };
 
-// store가 하는일은 기본적으로 나의 data(state)를 넣을 수 있는 장소를 생성한다.
 const store = createStore(reducer);
 
-console.log(store); // {dispatch: ƒ, subscribe: ƒ, getState: ƒ, replaceReducer: ƒ, Symbol(observable): ƒ}
-console.log(store.getState()); // hello
+// 0 {type: "@@redux/INITb.g.c.u.8.j"}
+store.dispatch({ type: "ADD" }); // 0 {type: "ADD"}
+store.dispatch({ type: "ADD" }); // 1 {type: "ADD"}
+store.dispatch({ type: "ADD" }); // 2 {type: "ADD"}
+store.dispatch({ type: "ADD" }); // 3 {type: "ADD"}
+store.dispatch({ type: "MINUS" }); // 4 {type: "MINUS"}
